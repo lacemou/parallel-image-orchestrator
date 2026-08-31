@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Parallel Image Orchestrator",
+  "version": "0.2.6",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA46mS7MkDYZlF298mN2oNCyV28MngVvkNetqEICATE4/rPT29LCiwPw7Xn9hdDc+E6nKFFkH2E4HHvZRbOAWooI/7RDxJOnkBJ7I8VRnFZha0KbvfonqyoZJG9sLD4jvnofHR1MXeuq97CnJTtDCETb/qzPr8bsIsuc77nbDsB+dz98R7qn7eKR5Z2xNZADDHat5cJn45jlwuzj/RZajTrnBbl2ZXhlM26wTEB4XcRhQluq6Fr+xyluHlOs3HaPtpQAKDwBHdOXIGwshaYBNj3Gd3qrMkPwuCKnF06C2qs86FeelOFIg1T9/OI8GE4V92N7LCqToWwwfu+zFLxRGtIwIDAQAB",
+  "permissions": [
+    "storage",
+    "debugger",
+    "downloads",
+    "nativeMessaging",
+    "tabs",
+    "scripting",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://chatgpt.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "options_page": "options.html"
+}

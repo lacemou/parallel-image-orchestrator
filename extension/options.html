@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parallel Image Orchestrator</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand-mark" aria-hidden="true">PIO</div>
+      <div>
+        <p class="eyebrow">网页生图调度器</p>
+        <h1>Parallel Image Orchestrator</h1>
+        <p class="lede">把本地批次中的提示词分发到 Codex 与 ChatGPT Project，并跟踪网页任务的生成与归档。</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="utility-strip" aria-labelledby="connection-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">连接检查</p>
+            <h2 id="connection-title">开始前检查</h2>
+          </div>
+          <p class="section-note">确认本机桥接服务与当前 ChatGPT Project 都已就绪。</p>
+        </div>
+        <div class="button-row">
+          <button id="bridge-test" class="button button-secondary" type="button">检查本机桥接</button>
+          <button id="project-preflight" class="button button-secondary" type="button">检查当前 Project</button>
+        </div>
+      </section>
+
+      <section class="workflow-panel" aria-labelledby="batch-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">批次工作流</p>
+            <h2 id="batch-title">批次确认</h2>
+          </div>
+          <p class="section-note">先核对路径和网页环境，再准备提示词；网页发送仍由你确认。</p>
+        </div>
+
+        <div class="field-group">
+          <label for="batch-path">
+            <span class="field-label">当前批次目录</span>
+            <span class="field-label-note">包含 manifest.json</span>
+          </label>
+          <div class="input-row">
+            <input id="batch-path" type="text" placeholder="/项目/本次任务/图片批次_<id>/" aria-label="当前批次目录（包含 manifest.json）" aria-describedby="batch-path-help" autocomplete="off" spellcheck="false">
+            <button id="load-batch" class="button button-primary" type="button">载入批次（不发送）</button>
+          </div>
+          <p id="batch-path-help" class="field-help">请粘贴 Skill 输出的 <code>extensionLoadPath</code>（扩展载入路径）。不要填提示词目录、批次根目录或“图片”子目录。</p>
+        </div>
+
+        <section id="batch-summary" class="summary-panel hidden" aria-live="polite" aria-atomic="true"></section>
+
+        <label id="confirmation-row" class="confirmation-panel hidden" for="batch-confirmed">
+          <input id="batch-confirmed" type="checkbox">
+          <span>
+            <strong class="confirmation-title">确认网页准备条件</strong>
+            <span class="confirmation-copy">我已核对以上每张网页任务、全部附件和当前批次目录，并确认 Chrome 已登录目标 ChatGPT Project。</span>
+          </span>
+        </label>
+
+        <div class="actions-panel" aria-label="网页任务操作">
+          <p class="action-label">网页任务操作</p>
+          <div class="button-row">
+            <button id="prepare-web" class="button button-secondary hidden" type="button" disabled>创建 / 修复网页任务页</button>
+            <button id="fill-web" class="button button-primary hidden" type="button" disabled>一键验证并填入全部提示词</button>
+            <button id="confirm-all-sent" class="button button-primary hidden" type="button" disabled>我已发送全部网页任务</button>
+            <button id="retry-monitor" class="button button-secondary hidden" type="button" disabled>恢复阻塞的网页监控（不重发）</button>
+            <button id="reset-web" class="button button-danger hidden" type="button" disabled>重置当前批次网页准备（不删除图片/对话）</button>
+          </div>
+          <p id="reset-web-help" class="field-help hidden">只清除当前批次尚未发送网页任务的扩展页面映射、未发送状态和监控记录；不会删除图片、ChatGPT 对话、登录状态或提示词文件。重置后请关闭旧任务页，再重新创建 / 修复任务页。</p>
+        </div>
+      </section>
+
+      <section class="status-panel" aria-labelledby="status-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="section-kicker">即时反馈</p>
+            <h2 id="status-title">运行状态</h2>
+          </div>
+        </div>
+        <output id="result" role="status" aria-live="polite" aria-atomic="true">载入批次后，结果会显示在这里。</output>
+      </section>
+    </main>
+
+    <footer class="app-footer">本页只负责调度与监控；网页端提示词载入后，发送动作仍需你在 ChatGPT 页面确认。</footer>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

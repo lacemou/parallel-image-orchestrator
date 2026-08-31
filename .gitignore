@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+图片批次_*/
+提示词_*/
+native-host/parallel-image-native-host
+release/
+.manifest.lock/
+native-host/com.yj.parallel_image_orchestrator.json
+native-host/node-path.txt

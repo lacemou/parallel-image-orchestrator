@@ -1,0 +1,12 @@
+{
+  "type": "module",
+  "name": "parallel-image-orchestrator",
+  "version": "0.2.6",
+  "scripts": {
+    "test": "node --test",
+    "create-batch-from-prompts": "node scripts/create-batch-from-prompts.mjs",
+    "build:native-host:windows": "node scripts/build-native-host-windows.mjs",
+    "audit:release": "node scripts/release-audit.mjs",
+    "package:release": "node scripts/package-release.mjs"
+  }
+}
