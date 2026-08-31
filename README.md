@@ -1,5 +1,7 @@
 # Parallel Image Orchestrator
 
+[English README](README.en.md)
+
 面向 Codex Desktop 与已登录 ChatGPT Project 的本地批量生图编排器。它不保存 Cookie、密码、令牌或聊天内容。
 
 ## 先理解：它会做什么

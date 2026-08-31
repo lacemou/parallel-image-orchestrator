@@ -9,6 +9,7 @@ const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const RELEASE_PATHS = [
   '.gitignore',
   'README.md',
+  'README.en.md',
   'package.json',
   'bridge',
   'extension',
