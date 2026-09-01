@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "parallel-image-orchestrator",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "scripts": {
     "test": "node --test",
     "create-batch-from-prompts": "node scripts/create-batch-from-prompts.mjs",

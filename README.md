@@ -18,7 +18,7 @@
 
 ### 先准备 5 件事
 
-1. 安装本 Skill、Chrome 扩展和本机桥接组件（让扩展可以把图片写入本地文件夹）。v0.2.6 提供预编译 Windows Host；macOS 继续使用本机编译安装，Linux 尚未实现。
+1. 安装本 Skill、Chrome 扩展和本机桥接组件（让扩展可以把图片写入本地文件夹）。v0.2.7 提供预编译 Windows Host；macOS 继续使用本机编译安装，Linux 尚未实现。
 2. 在 Chrome 登录 ChatGPT，并打开要使用的 ChatGPT Project。
 3. 如果有固定视觉规范、示例图或人物参考图，请先上传到这个 Project；没有也可以继续，提示词会按你的要求执行。
 4. 为每张图片准备一个 Markdown 提示词：`001.md`、`002.md`、`003.md`……文件名就是任务编号；也可以把完整提示词直接交给 Skill。
@@ -211,16 +211,16 @@ npm run create-batch-from-prompts -- --prompt-dir /path/to/prompts --root /path/
 2. 打开 Chrome 的 `chrome://extensions`，开启“开发者模式”，点击“加载已解压的扩展程序”，选择本仓库的 `extension/` 文件夹。
 3. 在扩展卡片上复制 32 位扩展 ID，然后在项目根目录运行下面的命令。这里的扩展 ID不是 ChatGPT Project ID。
 
-### Windows（v0.2.6）
+### Windows（v0.2.7）
 
 Windows 发布包已经包含预编译的 `native-host/parallel-image-native-host.exe`。安装器会检查 Host、bridge 和 Node.js，生成当前机器专用的 manifest，并把它注册到当前用户的 Chrome Native Messaging 注册表，不要求管理员权限。
 
 #### 先解压到固定位置
 
-请把完整的 `parallel-image-orchestrator-v0.2.6-source.zip` 解压到一个不会被清理、移动或改名的目录，例如：
+请把完整的 `parallel-image-orchestrator-v0.2.7-source.zip` 解压到一个不会被清理、移动或改名的目录，例如：
 
 ```text
-C:\Tools\parallel-image-orchestrator-v0.2.6\
+C:\Tools\parallel-image-orchestrator-v0.2.7\
 ```
 
 下面的命令必须在解压后的项目根目录运行，也就是能够同时看到 `package.json`、`scripts\`、`bridge\` 和 `native-host\` 的目录。不要在 ZIP 压缩包内、下载临时目录或 `C:\Windows\System32` 中运行 `npm test` 或安装脚本。
@@ -232,7 +232,7 @@ C:\Tools\parallel-image-orchestrator-v0.2.6\
 先在 `chrome://extensions` 加载本发布包中的 `extension\` 文件夹，并复制扩展卡片显示的 32 位扩展 ID。然后在 PowerShell 中执行：
 
 ```powershell
-$pioRoot = 'C:\Tools\parallel-image-orchestrator-v0.2.6'
+$pioRoot = 'C:\Tools\parallel-image-orchestrator-v0.2.7'
 $extensionId = 'YOUR_EXTENSION_ID'
 Set-Location -LiteralPath $pioRoot
 
@@ -294,7 +294,7 @@ npm run audit:release
 npm run package:release
 ```
 
-压缩包会写入 `release/parallel-image-orchestrator-v<版本>-source.zip`，同时输出 SHA-256 校验值。v0.2.6 包含独立本地 Codex 启动门禁、扩展、bridge、Skill、测试、设计文档、Windows Host 源码、预编译 Host、安装/卸载脚本和构建脚本；v0.2.5 是上一版可用包。
+压缩包会写入 `release/parallel-image-orchestrator-v<版本>-source.zip`，同时输出 SHA-256 校验值。v0.2.7 包含批次路径先返回、独立本地 Codex 对话门禁、扩展、bridge、Skill、测试、设计文档、Windows Host 源码、预编译 Host、安装/卸载脚本和构建脚本；v0.2.6 是上一版可用包。
 
 以下内容明确排除：
 

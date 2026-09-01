@@ -126,12 +126,12 @@ The command prints `extensionLoadPath`. Paste that complete batch path into the 
 
 ### Windows
 
-Download the Windows release ZIP and extract it to a stable location, for example `C:\Tools\parallel-image-orchestrator-v0.2.6\`. Do not run the tools from inside the ZIP, a temporary download location, or `C:\Windows\System32`.
+Download the Windows release ZIP and extract it to a stable location, for example `C:\Tools\parallel-image-orchestrator-v0.2.7\`. Do not run the tools from inside the ZIP, a temporary download location, or `C:\Windows\System32`.
 
 Load the package's `extension\` directory in `chrome://extensions`, copy its 32-character extension ID, then run PowerShell in the extracted project root:
 
 ```powershell
-$pioRoot = 'C:\Tools\parallel-image-orchestrator-v0.2.6'
+$pioRoot = 'C:\Tools\parallel-image-orchestrator-v0.2.7'
 $extensionId = 'YOUR_EXTENSION_ID'
 Set-Location -LiteralPath $pioRoot
 
