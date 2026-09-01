@@ -28,6 +28,8 @@ test('prints a copyable extension path when creating a batch from Markdown promp
   assert.equal(result.ok, true);
   assert.equal(result.promptSource, promptDir);
   assert.equal(result.taskCount, 4);
+  assert.equal(result.path, result.batchPath);
+  assert.match(result.batch_id, /^[0-9a-f-]{36}$/);
   assert.equal(dirname(result.batchPath), outputRoot);
   assert.match(result.batchPath, /图片批次_/);
   assert.equal(result.extensionLoadPath, result.batchPath);

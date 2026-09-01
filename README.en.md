@@ -6,7 +6,7 @@ A local batch-image orchestration tool for Codex Desktop and a logged-in ChatGPT
 
 ## What it does
 
-For batches of four or more images, the tool distributes individual image prompts across two independent channels:
+For batches of four or more images, the tool distributes individual image prompts across two independent channels. It creates the local batch and returns the extension path before either branch starts.
 
 - **Local Codex:** starts only after the user explicitly confirms local generation. It never waits for Chrome, a web preflight, or a web send action.
 - **ChatGPT web:** prepares one task page per web task, fills each prompt, and waits for the user to click **Send**. It never sends a ChatGPT message on the user's behalf.
@@ -41,18 +41,17 @@ Do not modify the prompt files.
 
 Codex should only show the resolved task list at this stage. Review task IDs, prompts, assignments, later attachments, and the batch root before confirming.
 
-### 2. Confirm allocation and start local Codex generation
+### 2. Confirm allocation and get the batch path
 
 After confirming the allocation, send:
 
 ```text
-The allocation is confirmed. Create the batch and start local Codex generation now.
-Do not wait for Chrome sign-in, web preflight, web task-page creation, or web sends.
-Do not send any web tasks yet.
+The allocation is confirmed. Create the batch and return its paths now.
+Do not create local Codex tasks or send any web tasks yet.
 Batch root: /absolute/path/to/batch-output/
 ```
 
-Local Codex tasks must start immediately. Web tasks remain queued until you separately decide to prepare them.
+The batch root must be a real absolute path, not a documentation placeholder. This step creates only the batch manifest, event log, and `图片/` archive directory. It does not create Codex conversations or web task pages.
 
 The batch response should include:
 
@@ -62,9 +61,23 @@ The batch response should include:
 | Batch directory | Contains `manifest.json` and `图片/`. |
 | `extensionLoadPath` | The batch directory to paste into the extension. |
 | Archive directory | The batch directory's `图片/` folder. |
-| Local Codex task IDs | The isolated tasks started for the Codex channel. |
 
-### 3. Prepare web tasks
+After receiving `extensionLoadPath`, you can load the batch in the extension. Do not wait for local image generation to finish.
+
+### 3. Start local Codex with one conversation per image
+
+After receiving the batch path, send:
+
+```text
+The batch has been created. Start local Codex generation.
+Create one separate Codex Desktop conversation for each image assigned to local Codex.
+Do not use sub-agents in the current conversation or combine multiple image tasks into one conversation.
+Do not wait for Chrome sign-in, web preflight, web task pages, or web sends.
+```
+
+The Skill must create one independent Codex Desktop task per Codex-assigned image and return the actual task IDs. It must not fall back to sub-agents or treat a setup handle as a task ID.
+
+### 4. Prepare web tasks
 
 Web preparation is independent of local Codex generation.
 

@@ -23,6 +23,10 @@ test('creates only a local batch for an allowed create_batch command', async () 
   const result = await handleCommand({ type: 'create_batch', root, tasks: [{ task_id: '001' }] });
   assert.equal(result.ok, true);
   assert.match(result.path, /图片批次_/);
+  assert.equal(result.batchPath, result.path);
+  assert.equal(result.extensionLoadPath, result.path);
+  assert.equal(result.archivePath, join(result.path, '图片'));
+  assert.equal(result.taskCount, 1);
 });
 
 test('creates a batch from a user-selected Markdown prompt directory', async () => {
@@ -40,6 +44,10 @@ test('creates a batch from a user-selected Markdown prompt directory', async () 
 
   assert.equal(result.ok, true);
   assert.match(result.path, /图片批次_/);
+  assert.equal(result.batchPath, result.path);
+  assert.equal(result.extensionLoadPath, result.path);
+  assert.equal(result.archivePath, join(result.path, '图片'));
+  assert.equal(result.taskCount, 4);
   const manifest = JSON.parse(await readFile(join(result.path, 'manifest.json'), 'utf8'));
   assert.equal(manifest.tasks[1].variable_prompt, '正文提示词');
   assert.match(manifest.tasks[1].effective_prompt, /仅生成 1 张图片/);

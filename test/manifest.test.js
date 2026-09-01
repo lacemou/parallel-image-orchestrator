@@ -12,6 +12,10 @@ test('creates a versioned batch with queued tasks', async () => {
   assert.equal(saved.schema_version, 1);
   assert.equal(saved.tasks[0].status, 'queued');
   assert.match(batch.path, /图片批次_/);
+  assert.equal(batch.batchPath, batch.path);
+  assert.equal(batch.extensionLoadPath, batch.path);
+  assert.equal(batch.archivePath, join(batch.path, '图片'));
+  assert.equal(batch.taskCount, 1);
 });
 
 test('records the initial 3:2 channel allocation for a five-image batch', async () => {

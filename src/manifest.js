@@ -28,7 +28,14 @@ export async function createBatch(root, tasks) {
   };
   await writeFile(join(path, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
   await writeFile(join(path, 'events.jsonl'), '');
-  return { path, ...manifest };
+  return {
+    path,
+    batchPath: path,
+    extensionLoadPath: path,
+    archivePath: join(path, '图片'),
+    taskCount: manifest.tasks.length,
+    ...manifest,
+  };
 }
 
 export async function loadBatch(batchPath) {

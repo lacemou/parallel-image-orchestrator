@@ -40,6 +40,8 @@ try {
     const batch = await createBatchFromPromptDirectory(resolve(options.root), promptSource);
     console.log(JSON.stringify({
       ok: true,
+      path: batch.path,
+      batch_id: batch.batch_id,
       batchPath: batch.path,
       extensionLoadPath: batch.path,
       archivePath: join(batch.path, '图片'),

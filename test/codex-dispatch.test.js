@@ -9,6 +9,8 @@ test('builds an isolated Codex image-task request from one confirmed task', () =
   assert.match(request.prompt, /portrait\.png/);
   assert.match(request.prompt, /不修改项目文件/);
   assert.match(request.prompt, /savedPath/);
+  assert.match(request.prompt, /独立 Codex Desktop 对话/);
+  assert.match(request.prompt, /不得使用.*子智能体/);
 });
 
 test('uses a complete prompt when a task came from a Markdown source field', () => {

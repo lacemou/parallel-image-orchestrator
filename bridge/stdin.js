@@ -2,6 +2,20 @@ import { assignNextTask, completeTaskAndAssignNext, createBatch, loadBatch, mark
 import { archiveDownload } from '../src/archive.js';
 import { createBatchFromPromptDirectory } from '../src/prompt-files.js';
 import { access } from 'node:fs/promises';
+import { join } from 'node:path';
+
+function createdBatchResult(batch) {
+  const batchPath = batch.path;
+  return {
+    ok: true,
+    path: batchPath,
+    batchPath,
+    extensionLoadPath: batchPath,
+    archivePath: join(batchPath, '图片'),
+    batch_id: batch.batch_id,
+    taskCount: batch.tasks.length,
+  };
+}
 
 export async function handleCommand(command) {
   if (command?.type === 'health_check') return { ok: true, status: 'ready' };
@@ -9,12 +23,12 @@ export async function handleCommand(command) {
   if (command?.type === 'create_batch') {
     if (!command.root || !Array.isArray(command.tasks)) return { ok: false, status: 'blocked', reason: 'batch_input_missing' };
     const batch = await createBatch(command.root, command.tasks);
-    return { ok: true, path: batch.path, batch_id: batch.batch_id };
+    return createdBatchResult(batch);
   }
   if (command?.type === 'create_batch_from_prompt_dir') {
     if (!command.root || !command.promptDir) return { ok: false, status: 'blocked', reason: 'prompt_batch_input_missing' };
     const batch = await createBatchFromPromptDirectory(command.root, command.promptDir);
-    return { ok: true, path: batch.path, batch_id: batch.batch_id };
+    return createdBatchResult(batch);
   }
   if (command?.type === 'load_batch') {
     if (!command.batchPath) return { ok: false, status: 'blocked', reason: 'batch_path_missing' };
